@@ -9,9 +9,9 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../../assets/books.jpeg") center/cover no-repeat;
+  background: url("../../assets/wp1828982.jpg") center/cover no-repeat;
   filter: blur(8px);
-  transform: scale(1.1); /* avoids blur edges */
+  transform: scale(1.1); 
   z-index: 1;
 }
 .home::after {
@@ -28,22 +28,30 @@
   margin: 0 auto;
 }
 .home h1 {
-  font-size: 48px;
+  font-size: 50px;
   margin-bottom: 20px;
-  font-weight: 700;
+  font-weight: bold;
+  color:#EDEDCE ;
+}
+.home h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color:#EDEDCE ;
 }
 
 .home p {
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 40px;
   opacity: 0.9;
+  color: #EDEDCE;
 }
 
 .home button {
   padding: 14px 32px;
   font-size: 16px;
   border-radius: 30px;
-  background: #0E2954;
+  background: #0C2C55;
   color: white;
   border: none;
   cursor: pointer;
@@ -51,7 +59,7 @@
 }
 
 .home button:hover {
-  background: #0C134F;
+  background: #090f48;
   transform: scale(1.05);
 }
 

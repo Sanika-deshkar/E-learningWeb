@@ -5,26 +5,26 @@ const Testimonials = () => {
   const testimonialsData = [
   {
     id: 1,
-    name: "John Doe",
-    position: "Student",
+    name: "Aarav Mehta",
+    position: "Computer Engineering, 3rd Year",
     message: "This platform helped me learn so effectively. The courses are amazing and the instructors are top-notch.",
   },
   {
     id: 2,
-    name: "Jane Smith",
-    position: "Student",
+    name: "Priya Reddy",
+    position: "Information Technology, 2nd Year",
     message: "I've learned more here than in any other place. The interactive lessons and quizzes make learning enjoyable.",
   },
   {
     id: 3,
     name: "Rahul Patil",
-    position: "Engineering Student",
+    position: "Software Engineering, 1st Year",
     message: "The content is well-structured and easy to follow. It really helped me prepare for exams.",
   },
   {
     id: 4,
     name: "Ananya Sharma",
-    position: "CS Student",
+    position: "Computer Science & AI, 4th Year",
     message: "I love the practical approach and projects. Learning feels fun and effective here.",
   },
 ];

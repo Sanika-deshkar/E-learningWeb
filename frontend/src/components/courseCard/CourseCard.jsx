@@ -2,33 +2,61 @@ import React from "react";
 import "./courseCard.css";
 import { server } from "../../config";
 import { UserData } from "../../context/UserContext";
+import { CourseData } from "../../context/CourseContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { CourseData } from "../../context/CourseContext";
 
 const CourseCard = ({ course }) => {
   const navigate = useNavigate();
-  const { user, isAuth } = UserData();
+  const { user, isAuth, setUser, fetchUser } = UserData();
+  const { fetchCourses, fetchMyCourse } = CourseData();
 
-  const { fetchCourses } = CourseData();
-
+  // DELETE COURSE (admin)
   const deleteHandler = async (id) => {
     if (confirm("Are you sure you want to delete this course?")) {
       try {
         const { data } = await axios.delete(`${server}/api/course/${id}`, {
           headers: {
-            token: localStorage.getItem("token"),
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-
         toast.success(data.message);
         fetchCourses();
       } catch (error) {
-        toast.error(error.response.data.message);
+        toast.error(error.response?.data?.message);
       }
     }
   };
+
+  // BUY COURSE
+  const buyCourseHandler = async () => {
+    try {
+      const { data } = await axios.post(
+        `${server}/api/course/checkout/${course._id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      toast.success("Course purchased successfully!");
+
+      // Update user subscription locally
+      setUser({
+        ...user,
+        subscription: [...user.subscription, course._id],
+      });
+
+      fetchMyCourse(); // refresh dashboard
+      navigate(`/course/study/${course._id}`); // go to study page
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Purchase failed");
+    }
+  };
+
   return (
     <div className="course-card">
       <img src={`${server}/${course.image}`} alt="" className="course-image" />
@@ -36,6 +64,7 @@ const CourseCard = ({ course }) => {
       <p>Instructor- {course.createdBy}</p>
       <p>Duration- {course.duration} weeks</p>
       <p>Price- ₹{course.price}</p>
+
       {isAuth ? (
         <>
           {user && user.role !== "admin" ? (
@@ -43,12 +72,13 @@ const CourseCard = ({ course }) => {
               {user.subscription.includes(course._id) ? (
                 <button
                   onClick={() => navigate(`/course/study/${course._id}`)}
-                  className="common-btn">
-                 Study
+                  className="common-btn"
+                >
+                  Study
                 </button>
               ) : (
                 <button
-                  onClick={() => navigate(`/course/${course._id}`)}
+                  onClick={buyCourseHandler}
                   className="common-btn"
                 >
                   Get Started

@@ -30,14 +30,18 @@ const Lecture = ({ user }) => {
 
   /* -------------------- ACCESS CONTROL -------------------- */
   useEffect(() => {
-    if (
-      user &&
-      user.role !== "admin" &&
-      !user.subscription?.includes(params.id)
-    ) {
-      navigate("/");
-    }
-  }, [user, params.id, navigate]);
+  if (!user) return;
+
+  if (
+    user.role !== "admin" &&
+    !user.subscription?.includes(params.id)
+  ) {
+    navigate("/");
+    return;
+  }
+  fetchLectures();
+}, [user, params.id]);
+
 
   /* -------------------- FETCH ALL LECTURES -------------------- */
   const fetchLectures = async () => {
@@ -46,8 +50,9 @@ const Lecture = ({ user }) => {
         `${server}/api/lectures/${params.id}`,
         {
           headers: {
-            token: localStorage.getItem("token"),
-          },
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+},
+
         }
       );
       setLectures(data.lectures);
@@ -64,8 +69,9 @@ const Lecture = ({ user }) => {
     try {
       const { data } = await axios.get(`${server}/api/lecture/${id}`, {
         headers: {
-          token: localStorage.getItem("token"),
-        },
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+},
+
       });
       setLecture(data.lecture);
     } catch (error) {
@@ -104,8 +110,9 @@ const Lecture = ({ user }) => {
         {},
         {
           headers: {
-            token: localStorage.getItem("token"),
-          },
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+},
+
         }
       );
       // fetchProgress();
@@ -142,8 +149,9 @@ const Lecture = ({ user }) => {
         myForm,
         {
           headers: {
-            token: localStorage.getItem("token"),
-          },
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+},
+
         }
       );
 
@@ -169,8 +177,9 @@ const Lecture = ({ user }) => {
     try {
       const { data } = await axios.delete(`${server}/api/lecture/${id}`, {
         headers: {
-          token: localStorage.getItem("token"),
-        },
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+},
+
       });
       toast.success(data.message);
       fetchLectures();
@@ -183,7 +192,7 @@ const Lecture = ({ user }) => {
   useEffect(() => {
     fetchLectures();
     // fetchProgress();
-  }, []);
+  }, [params.id]);
 
   /* -------------------- UI -------------------- */
   if (loading) return <Loading />;

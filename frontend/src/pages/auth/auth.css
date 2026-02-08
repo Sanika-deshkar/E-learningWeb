@@ -3,10 +3,10 @@
     align-items:center;
     justify-content: center;
     height: 80vh;
-    background-color: aliceblue;
+    background-color: #EDEDCE;
 
     .auth-form{
-        background-color: #2E8A99;
+        background-color: #629FAD;
         padding: 30px;
         border-radius: 13px;
         box-shadow: 0px 2px 4px rgb(32, 87, 118);
@@ -15,7 +15,7 @@
 
         h2{
             font-size: 25px;
-            color: rgb(50, 50, 72);
+            color: #0C2C55;
             margin-bottom: 15px;
         }
 

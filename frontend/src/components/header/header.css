@@ -3,9 +3,9 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #0E2954;
+    background: linear-gradient(135deg, #0C2C55, #081d39);
     color: azure;
-    box-shadow: 0px 2px 4px rgb(30, 41, 201);
+    box-shadow: 0px 2px 4px r#0C2C55;
 
     .logo{
         font-size: 30px;
@@ -27,13 +27,13 @@ header{
 
         a{
             text-decoration: none;
-            color:rgb(11, 196, 220);
+            color:rgb(0, 225, 255);
             transition: .3s;
             font-size: 20px;
 
         &:hover{
             color: aqua;
-            text-decoration: underline;
+           text-decoration: underline;
         }
 
             

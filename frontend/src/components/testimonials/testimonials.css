@@ -1,12 +1,12 @@
 .testimonials {
   padding: 80px 10%;
   text-align: center;
-  background: #e9e5e2;
+  background: #EDEDCE;
 }
 
 .testimonials h2 {
   font-size: 38px;
-  color: #1e293b;
+  color: #0C2C55;
   margin-bottom: 50px;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .testimonial-card {
-  background: #ffffff;
+  background: #629FAD;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   padding: 25px;
   border: 1px solid rgb(22, 17, 58);
@@ -30,8 +30,8 @@
 }
 
 .testimonial-card:hover {
-  border-color: #0095ff;
-  box-shadow: 0 25px 40px rgb(40, 94, 255);
+  border-color: #0C2C55;
+  box-shadow: 0 25px 40px #296374;
   transform: translateY(-8px);
 }
 

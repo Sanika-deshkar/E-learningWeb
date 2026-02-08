@@ -1,22 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import './dashboard.css'
 import { CourseData } from "../../context/CourseContext";
+import { UserData } from "../../context/UserContext";
 import CourseCard from "../../components/coursecard/CourseCard";
 
 const Dashboard = () => {
-    const {mycourse} = CourseData()
-  return (
-    <div className="student-dashboard">
-        <h2>All Enrolled courses</h2>
-        <div className="dashboard-content">
-            {
-                mycourse && mycourse.length>0 ? mycourse.map((e)=>(
-                    <CourseCard key={e._id} course={e}/>
-                )) : (<p>No Enrolled courses</p>)
-            }
-        </div>
-    </div>
-  )
-}
+    const { myCourse, fetchMyCourse } = CourseData();  
+    const { user } = UserData();
 
-export default Dashboard
+    
+    useEffect(() => {
+        if(user) fetchMyCourse();
+    }, [user]);
+
+    return (
+        <div className="student-dashboard">
+            <h2>All Enrolled courses</h2>
+            <div className="dashboard-content">
+                {
+                    myCourse && myCourse.length>0 ? myCourse.map((e)=>(
+                        <CourseCard key={e._id} course={e}/>
+                    )) : (<p>No Enrolled courses</p>)
+                }
+            </div>
+        </div>
+    )
+}  
+
+export default Dashboard;
