@@ -13,20 +13,23 @@ const AdminDashboard = ({ user }) => {
       navigate("/");
     }
   }, [user, navigate]);
-
+ 
   
   const fetchStats = async () => {
     try {
-      const { data } = await api.get("/stats"); 
+      const { data } = await api.get("/api/stats"); 
       setStats(data);
     } catch (error) {
       console.log(error.response?.data?.message || error.message);
     }
   };
 
-  useEffect(() => {
+ useEffect(() => {
+  if (user && user.role === "admin") {
     fetchStats();
-  }, []);
+  }
+}, [user]);
+
 
   return (
     

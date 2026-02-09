@@ -1,53 +1,47 @@
 import React, { useEffect, useState } from "react";
 import "./users.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { server } from "../../config";
 import Layout from "../utils/Layout";
 import toast from "react-hot-toast";
+import api from '../../api'
 
 const AdminUsers = ({ user }) => {
   const navigate = useNavigate();
 
-  if (user && user.mainrole !== "superadmin") return navigate("/");
+  useEffect(() => {
+  if (user && user.role !== "admin") {
+    navigate("/");
+  }
+}, [user, navigate]);
+
 
   const [users, setUsers] = useState([]);
 
   async function fetchUsers() {
-    try {
-      const { data } = await axios.get(`${server}/api/users`, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
-
-      setUsers(data.users);
-    } catch (error) {
-      console.log(error);
-    }
+  try {
+    const { data } = await api.get("/api/users");
+    setUsers(data.users);
+  } catch (error) {
+    console.log(error.response?.data || error.message);
   }
+}
+
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const updateRole = async (id) => {
-    if (confirm("are you sure you want to update this user role")) {
+   const updateRole = async (id, role) => {
+    if (window.confirm("Are you sure you want to update this user role?")) {
       try {
-        const { data } = await axios.put(
-          `${server}/api/user/${id}`,
-          {},
-          {
-            headers: {
-              token: localStorage.getItem("token"),
-            },
-          }
-        );
+        const { data } = await api.put(`/api/user/${id}`, {
+          role,
+        });
 
         toast.success(data.message);
         fetchUsers();
       } catch (error) {
-        toast.error(error.response.data.message);
+        toast.error(error.response?.data?.message || "Error");
       }
     }
   };

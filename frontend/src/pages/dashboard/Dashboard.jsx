@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './dashboard.css'
 import { CourseData } from "../../context/CourseContext";
 import { UserData } from "../../context/UserContext";
-import CourseCard from "../../components/coursecard/CourseCard";
+import CourseCard from "../../components/courseCard/CourseCard";
 
 const Dashboard = () => {
     const { myCourse, fetchMyCourse } = CourseData();  

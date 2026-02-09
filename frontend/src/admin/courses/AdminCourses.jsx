@@ -5,8 +5,9 @@ import { CourseData } from "../../context/CourseContext";
 import CourseCard from "../../components/courseCard/CourseCard";
 import "./adminCourses.css";
 import toast from "react-hot-toast";
-import axios from "axios";
-import { server } from "../../config";
+
+import api from '../../api'
+
 
 const categories = [
   "Web Development",
@@ -47,9 +48,7 @@ const AdminCourses = ({ user }) => {
 
 const submitHandler = async (e) => {
   e.preventDefault();
-
-  try {
-    setBtnLoading(true);
+  setBtnLoading(true);
 
     const formData = new FormData();
     formData.append("title", title);
@@ -60,7 +59,10 @@ const submitHandler = async (e) => {
     formData.append("duration", duration);
     formData.append("image", image);
 
-    await axios.post(
+
+  try {
+    
+    await api.post(
       `${server}/api/course/new`,
       formData,
       {

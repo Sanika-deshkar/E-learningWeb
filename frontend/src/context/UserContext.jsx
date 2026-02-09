@@ -15,7 +15,7 @@ export const UserContextProvider = ({ children }) => {
   try {
     const { data } = await api.post("/api/user/login", { email, password });
 
-    // ✅ SAVE TOKEN & USER
+    
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
 

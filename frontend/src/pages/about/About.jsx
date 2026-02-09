@@ -13,7 +13,6 @@ const About = () => {
             Learn smarter. Grow faster. Build your future.
           </p>
 
-          <p>
            <p>
   We are an e-learning platform committed to making high-quality education
   accessible to everyone, regardless of background or experience level.
@@ -25,8 +24,6 @@ const About = () => {
   at their own pace while staying aligned with current industry trends,
   empowering them to achieve their academic and career goals effectively.
 </p>
-
-          </p>
 
           <div className="about-features">
             <div className="feature">🎓 Expert-Led Courses</div>
