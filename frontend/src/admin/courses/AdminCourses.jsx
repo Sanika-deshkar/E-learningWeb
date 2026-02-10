@@ -57,23 +57,22 @@ const submitHandler = async (e) => {
     formData.append("createdBy", createdBy);
     formData.append("category", category);
     formData.append("duration", duration);
-    formData.append("image", image);
+    formData.append("file", image);
 
 
   try {
-    
-    await api.post(
-      `${server}/api/course/new`,
+    const {data}= await api.post(
+      "/api/course/new",
       formData,
       {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "multipart/form-data",
+         headers: {
+          token: localStorage.getItem("token"),
         },
       }
     );
 
     toast.success("Course Added Successfully");
+    setBtnLoading(false);
     await fetchCourses();
     setImage("");
     setTitle("");
@@ -85,8 +84,6 @@ const submitHandler = async (e) => {
     setCategory("");
   } catch (error) {
     toast.error(error.response?.data?.message || "Something went wrong");
-  } finally {
-    setBtnLoading(false);
   }
 };
 

@@ -6,7 +6,7 @@ import "./dashboard.css";
 
 const AdminDashboard = ({ user }) => {
   const navigate = useNavigate();
-  const [stats, setStats] = useState({});
+  const [stats, setStats] = useState([]);
 
   useEffect(() => {
     if (user && user.role !== "admin") {
@@ -17,18 +17,20 @@ const AdminDashboard = ({ user }) => {
   
   const fetchStats = async () => {
     try {
-      const { data } = await api.get("/api/stats"); 
-      setStats(data);
+      const { data } = await api.get("/api/stats",{
+        headers:{
+          token: localStorage.getItem("token"),
+        },
+      }); 
+      setStats(data.stats);
     } catch (error) {
       console.log(error.response?.data?.message || error.message);
     }
   };
 
  useEffect(() => {
-  if (user && user.role === "admin") {
     fetchStats();
-  }
-}, [user]);
+}, []);
 
 
   return (
@@ -36,7 +38,7 @@ const AdminDashboard = ({ user }) => {
       <div className="main-content">
         <div className="box">
           <p>Total Courses</p>
-          <p>{stats.totalCourse || 0}</p>
+          <p>{stats.totalCourses || 0}</p>
         </div>
 
         <div className="box">

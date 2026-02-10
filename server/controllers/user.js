@@ -53,7 +53,7 @@ export const verifyUser = TryCatch(async (req, res) => {
             message: "Otp Expired",
         });
 
-    if (verify.otp !== otp)
+    if (Number(otp) !== verify.otp)
         return res.status(400).json({
             message: "Wrong Otp",
         });

@@ -43,3 +43,32 @@
     
     }
 }
+.auth-form form button.common-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #0C2C55;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-form form button.common-btn:hover {
+  background-color: #09406d;
+}
+
+.auth-form p {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.auth-form p a {
+  color: #0C2C55;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.auth-form p a:hover {
+  text-decoration: underline;
+}
