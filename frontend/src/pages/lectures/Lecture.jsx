@@ -5,7 +5,6 @@ import axios from "axios";
 import { server } from "../../config";
 import Loading from "../../components/loading/Loading";
 import toast from "react-hot-toast";
-import { TiTick } from "react-icons/ti";
 
 const Lecture = ({ user }) => {
   const [lectures, setLectures] = useState([]);
@@ -23,10 +22,10 @@ const Lecture = ({ user }) => {
   const [videoPrev, setVideoPrev] = useState("");
   const [btnLoading, setBtnLoading] = useState(false);
 
-  const [completed, setCompleted] = useState(0);
-  const [completedLec, setCompletedLec] = useState(0);
-  const [lectLength, setLectLength] = useState(0);
-  const [progress, setProgress] = useState([]);
+  // const [completed, setCompleted] = useState(0);
+  // const [completedLec, setCompletedLec] = useState(0);
+  // const [lectLength, setLectLength] = useState(0);
+  // const [progress, setProgress] = useState([]);
 
   /* -------------------- ACCESS CONTROL -------------------- */
   useEffect(() => {
@@ -82,44 +81,44 @@ const Lecture = ({ user }) => {
   };
 
   /* -------------------- FETCH PROGRESS (SAFE) -------------------- */
-  // const fetchProgress = async () => {
-  //   try {
-  //     const { data } = await axios.get(
-  //       `${server}/api/user/progress?course=${params.id}`,
-  //       {
-  //         headers: {
-  //           token: localStorage.getItem("token"),
-  //         },
-  //       }
-  //     );
+//   const fetchProgress = async () => {
+//  try {
+//       const { data } = await axios.get(
+//         `${server}/api/user/progress?course=${params.id}`,
+//         {
+//           headers: {
+//             token: localStorage.getItem("token"),
+//           },
+//         }
+//       );
 
-  //     setCompleted(data.courseProgressPercentage || 0);
-  //     setCompletedLec(data.completedLectures || 0);
-  //     setLectLength(data.allLectures || 0);
-  //     setProgress(data.progress || []);
-  //   } catch (error) {
-  //     console.log("Progress not available yet");
-  //   }
-  // };
+//       setCompleted(data.courseProgressPercentage || 0);
+//       setCompletedLec(data.completedLectures || 0);
+//       setLectLength(data.allLectures || 0);
+//       setProgress(data.progress || []);
+//     } catch (error) {
+//       console.log("Progress not available yet");
+//     }
+//   };
 
   /* -------------------- ADD PROGRESS -------------------- */
-  const addProgress = async (id) => {
-    try {
-      await axios.post(
-        `${server}/api/user/progress?course=${params.id}&lectureId=${id}`,
-        {},
-        {
-          headers: {
-  Authorization: `Bearer ${localStorage.getItem("token")}`,
-},
+//   const addProgress = async (id) => {
+//     try {
+//       await axios.post(
+//         `${server}/api/user/progress?course=${params.id}&lectureId=${id}`,
+//         {},
+//         {
+//           headers: {
+//               token: localStorage.getItem("token"),
+// },
 
-        }
-      );
-      // fetchProgress();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+//         }
+//       );
+//       fetchProgress();
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
 
   /* -------------------- VIDEO UPLOAD -------------------- */
   const changeVideoHandler = (e) => {
@@ -191,7 +190,7 @@ const Lecture = ({ user }) => {
   /* -------------------- INIT -------------------- */
   useEffect(() => {
     fetchLectures();
-    // fetchProgress();
+    
   }, [params.id]);
 
   /* -------------------- UI -------------------- */
@@ -199,10 +198,7 @@ const Lecture = ({ user }) => {
 
   return (
     <>
-      <div className="progress">
-        Lecture completed - {completedLec} out of {lectLength} <br />
-        <progress value={completed} max={100}></progress> {completed} %
-      </div>
+      
 
       <div className="lecture-page">
         {/* LEFT */}
@@ -216,7 +212,7 @@ const Lecture = ({ user }) => {
                 width="100%"
                 controls
                 autoPlay
-                onEnded={() => addProgress(lecture._id)}
+                // onEnded={() => addProgress(lecture._id)}
               ></video>
               <h1>{lecture.title}</h1>
               <h3>{lecture.description}</h3>
@@ -277,11 +273,11 @@ const Lecture = ({ user }) => {
                   }`}
                 >
                   {i + 1}. {e.title}
-                  {progress[0]?.completedLectures?.includes(e._id) && (
+                  {/* {progress[0]?.completedLectures?.includes(e._id) && (
                     <span style={{ marginLeft: 10, color: "green" }}>
                       <TiTick />
                     </span>
-                  )}
+                  )} */}
                 </div>
 
                 {user?.role === "admin" && (

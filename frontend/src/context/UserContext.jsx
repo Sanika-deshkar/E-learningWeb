@@ -60,9 +60,8 @@ export const UserContextProvider = ({ children }) => {
 
     toast.success(data.message);
     setBtnLoading(false);
-    localStorage.removeItem("activationToken"); 
-    
     navigate("/login"); 
+    localStorage.clear(); 
   } catch (error) {
     setBtnLoading(false);
     toast.error(error.response?.data?.message || "Verification Failed");

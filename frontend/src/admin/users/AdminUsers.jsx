@@ -19,7 +19,11 @@ const AdminUsers = ({ user }) => {
 
   async function fetchUsers() {
   try {
-    const { data } = await api.get("/api/users");
+    const { data } = await api.get("/api/users",{
+      headers:{
+        token: localStorage.getItem("token"),
+      }
+    });
     setUsers(data.users);
   } catch (error) {
     console.log(error.response?.data || error.message);

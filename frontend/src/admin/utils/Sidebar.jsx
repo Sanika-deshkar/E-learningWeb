@@ -17,7 +17,7 @@ const Sidebar = () => {
           <div className="icon">
             <IoIosHome />
           </div>
-          <span>Courses</span>
+          <span>Home</span>
           </Link>
         </li>
 
@@ -26,7 +26,7 @@ const Sidebar = () => {
           <div className="icon">
             <FaBook />
           </div>
-          <span>Home</span>
+          <span>Courses</span>
           </Link>
         </li>
 
@@ -40,7 +40,7 @@ const Sidebar = () => {
         </li>
 
       <li>
-          <Link to={'/admin/users'}>
+          <Link to={'/account'}>
           <div className="icon">
             <AiOutlineLogout />
           </div>

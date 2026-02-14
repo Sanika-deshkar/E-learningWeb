@@ -2,7 +2,7 @@ import TryCatch from "../middlewares/TryCatch.js";
 import { Courses } from "../models/course.js";
 import { Lecture } from "../models/Lecture.js";
 import { User } from "../models/user.js";
-
+import { Progress } from "../models/Progress.js";
 /* ================= COURSES ================= */
 
 export const getAllCourses = TryCatch(async (req, res) => {
@@ -77,7 +77,7 @@ export const checkout = TryCatch(async (req, res) => {
   const user = await User.findById(req.user._id);
   const courseId = req.params.id;
 
-  // prevent duplicate subscription
+  
   if (user.subscription.includes(courseId)) {
     return res.status(400).json({
       message: "Already enrolled in this course",
@@ -87,7 +87,58 @@ export const checkout = TryCatch(async (req, res) => {
   user.subscription.push(courseId);
   await user.save();
 
+  await Progress.create({
+    course: course._id,
+    completedLectures: [],
+    user: req.user._id,
+  })
+
   res.status(200).json({
     message: "Payment successful",
+  });
+});
+
+export const addProgress = TryCatch(async (req, res) => {
+  const progress = await Progress.findOne({
+    user: req.user._id,
+    course: req.query.course,
+  });
+
+  const { lectureId } = req.query;
+
+  if (progress.completedLectures.includes(lectureId)) {
+    return res.json({
+      message: "Progress recorded",
+    });
+  }
+
+  progress.completedLectures.push(lectureId);
+
+  await progress.save();
+
+  res.status(201).json({
+    message: "new Progress added",
+  });
+});
+
+export const getYourProgress = TryCatch(async (req, res) => {
+  const progress = await Progress.find({
+    user: req.user._id,
+    course: req.query.course,
+  });
+
+  if (!progress) return res.status(404).json({ message: "null" });
+
+  const allLectures = (await Lecture.find({ course: req.query.course })).length;
+
+  const completedLectures = progress[0].completedLectures.length;
+
+  const courseProgressPercentage = (completedLectures * 100) / allLectures;
+
+  res.json({
+    courseProgressPercentage,
+    completedLectures,
+    allLectures,
+    progress,
   });
 });

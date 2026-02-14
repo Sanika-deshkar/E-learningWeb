@@ -1,22 +1,17 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { UserData } from "../../context/UserContext";
 
 const Verify = () => {
   const [otp, setOtp] = useState("");
+  const  {btnLoading , verifyOtp} = UserData();
   const navigate = useNavigate();
-  const location = useLocation();
-  const activationToken = location.state?.activationToken;
 
 const handleVerify = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post("/api/verifyUser", { otp, activationToken });
-      alert(res.data.message); 
-      navigate("/login");       
-    } catch (err) {
-      alert(err.response?.data?.message || "Something went wrong");
-    }
+    verifyOtp(Number(otp),navigate)
+    
   };
   return (
     <div className="auth-page">
@@ -30,7 +25,9 @@ const handleVerify = async (e) => {
             onChange={(e) => setOtp(e.target.value)}
             required
           />
-          <button type="submit" className="common-btn">Verify</button>
+          <button disabled={btnLoading} type="submit" className="common-btn">
+            {btnLoading? "pls wait": "Verify"}
+          </button>
         </form>
         <p>
           Go back to <Link to="/login">Login</Link> page
