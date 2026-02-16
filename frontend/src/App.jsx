@@ -21,6 +21,8 @@ import Account from "./pages/account/Account";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Verify from "./pages/auth/Verify";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 /* Payment */
 import PaymentSuccess from "./pages/paymentsuccess/PaymentSuccess";
@@ -35,6 +37,7 @@ import Layout from "./admin/utils/Layout";
 
 /* Context */
 import { UserData } from "./context/UserContext";
+
 
 const App = () => {
   const { isAuth, user, loading } = UserData();
@@ -55,6 +58,15 @@ const App = () => {
         <Route path="/login" element={isAuth ? <Home /> : <Login />} />
         <Route path="/register" element={isAuth ? <Home /> : <Register />} />
         <Route path="/verify" element={isAuth ? <Home /> : <Verify />} />
+        <Route
+              path="/forgot"
+              element={isAuth ? <Home /> : <ForgotPassword />}
+            />
+
+        <Route
+              path="/reset-password/:token"
+              element={isAuth ? <Home /> : <ResetPassword />}
+            />
 
         {/* ================= USER ROUTES ================= */}
         <Route
