@@ -11,7 +11,7 @@ import Loading from "./components/loading/Loading";
 import Home from "./pages/Home/Home";
 import About from "./pages/about/About";
 import Courses from "./pages/courses/Courses";
-import CourseDescription from "./pages/coursedescription/CourseDescription";
+import CourseDescription from "./pages/coursedescription/courseDescription";
 import CourseStudy from "./pages/coursestudy/CourseStudy";
 import Lecture from "./pages/lectures/Lecture";
 import Dashboard from "./pages/dashboard/Dashboard";
