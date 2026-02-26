@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://eduhub-six-sooty.vercel.app"
+    "https://eduhub-learning-flax.vercel.app"
   ],
   credentials: true,
 }));
