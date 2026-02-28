@@ -1,2 +1,2 @@
-export const server = "https://e-learningweb-server1.onrender.com/";
+export const server = "https://elearning-server-ow0i.onrender.com";
 export default server;
