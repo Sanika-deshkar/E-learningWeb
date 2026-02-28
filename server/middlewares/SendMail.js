@@ -57,7 +57,7 @@ const sendMail=async(email,subject,data)=>{
 </html>
 `;
     await transport.sendMail({
-        from:process.env.Gmail,
+        from:process.env.SMTP_MAIL,
         to:email,
         subject,
         html
@@ -71,8 +71,8 @@ export const sendForgotMail = async (subject, data) => {
     host: "smtp.gmail.com",
     port: 465,
     auth: {
-      user: process.env.Gmail,
-      pass: process.env.Password,
+      user: process.env.SMTP_MAIL,
+      pass: process.env.SMTP_PASSWORD,
     },
   });
   const html = `<!DOCTYPE html>
@@ -140,7 +140,7 @@ export const sendForgotMail = async (subject, data) => {
 `;
 
   await transport.sendMail({
-    from: process.env.Gmail,
+    from: process.env.SMTP_MAIL,
     to: data.email,
     subject,
     html,
