@@ -89,18 +89,15 @@ export const loginUser = TryCatch(async (req, res) => {
         expiresIn: "15d",
     });
 
-    // Send token as a cookie
-   res.cookie("token", token, {
-    httpOnly: true,
-    maxAge: 15 * 24 * 60 * 60 * 1000,
-    sameSite: "lax", // Required for localhost to accept cookies
-    secure: false,   // Must be false for HTTP (not HTTPS)
+    res.cookie("token", token, {
+  httpOnly: true,
+  maxAge: 15 * 24 * 60 * 60 * 1000,
+  sameSite: "none",   // required for cross-domain (Vercel ↔ Render)
+  secure: true,       // required for HTTPS
 }).json({
-        message: `Welcome Back ${user.name}`,
-        user,
-        // Optional: keeping token in response if you still need it for anything else
-        token 
-    });
+  message: `Welcome Back ${user.name}`,
+  user,
+});
 });
 
 export const myProfile = TryCatch(async (req, res) => {
