@@ -3,10 +3,15 @@ import { User } from "../models/user.js";
 
 export const isAuth = async (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    
+    let token = req.cookies.token;
+
+    if (!token && req.headers.authorization?.startsWith("Bearer")) {
+      token = req.headers.authorization.split(" ")[1];
+    }
 
     if (!token) {
-      return res.status(401).json({ message: "Please Login" });
+      return res.status(401).json({ message: "Login First" });
     }
 
     const decodedData = jwt.verify(token, process.env.Jwt_Sec);
@@ -21,7 +26,7 @@ export const isAuth = async (req, res, next) => {
     next();
 
   } catch (error) {
-    return res.status(401).json({ message: "Login First" });
+    return res.status(401).json({ message: "Invalid Token" });
   }
 };
 
